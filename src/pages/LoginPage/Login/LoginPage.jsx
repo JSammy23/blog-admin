@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import './LoginPage.Styles.css'; 
 import { loginUser } from "../../../api";
 
@@ -10,6 +10,8 @@ const LoginPage = () => {
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
     const [error, setError] = useState('')
+
+    const navigate = useNavigate();
 
     const handleInputChange = (e) => {
         if (e.target.value !== '') {
@@ -24,6 +26,7 @@ const LoginPage = () => {
         try {
             const data = await loginUser({ username, password });
             console.log(data.message);
+            navigate('/home');
         } catch (err) {
             setError("Failed to log in.");
         }
