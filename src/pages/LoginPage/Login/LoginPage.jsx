@@ -2,7 +2,7 @@ import { useState } from "react";
 
 import { Link } from "react-router-dom";
 import './LoginPage.Styles.css'; 
-import { loginUser } from "../../api";
+import { loginUser } from "../../../api";
 
 
 const LoginPage = () => {
@@ -30,7 +30,7 @@ const LoginPage = () => {
     };
 
   return (
-    <div className="container" >
+    <div >
         <div className="login-box">
             <form onSubmit={handleSubmit} >
                 <div className="user-box">

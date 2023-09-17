@@ -49,7 +49,7 @@
 .login-box .user-box.has-value label {
   top: -20px;
   left: 0px;
-  color: #3ddc97;
+  color: var(--primary-100);
   font-size: 1em;
 }
 
@@ -69,7 +69,7 @@
   position: relative;
   display: inline-block;
   padding: 10px 20px;
-  color: #3ddc97;
+  color: var(--primary-100);
   font-size: 16px;
   text-decoration: none;
   text-transform: uppercase;
@@ -84,13 +84,13 @@
 
 .login-button:hover,
 .sign-up-button:hover {
-  background: #3ddc97;
+  background: var(--primary-100);
   color: #fff;
   border-radius: 5px;
-  box-shadow: 0 0 5px #3ddc97,
-              0 0 25px #3ddc97,
-              0 0 50px #3ddc97,
-              0 0 100px #3ddc97;
+  box-shadow: 0 0 5px var(--primary-100),
+              0 0 25px var(--primary-100),
+              0 0 50px var(--primary-100),
+              0 0 100px var(--primary-100);
 }
 
 @media screen and (max-width: 488px) {
@@ -103,5 +103,5 @@
 
 .info p,
 .error {
-  color: #3ddc97;
+  color: var(--primary-100);
 }
