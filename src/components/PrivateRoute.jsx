@@ -1,5 +1,5 @@
 import { Navigate, Outlet } from "react-router-dom";
-import useAuth from "../hooks/useAuth";  // adjust the path accordingly
+import useAuth from "../hooks/useAuth"; 
 
 const PrivateRoute = () => {
     let auth = useAuth();
