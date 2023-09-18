@@ -1,0 +1,8 @@
+.header {
+ color: var(--primary-100);
+}
+
+.card-container {
+    display: flex;
+    gap: 1.5em;
+}
