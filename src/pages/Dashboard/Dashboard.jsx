@@ -2,17 +2,25 @@ import { useState, useEffect } from 'react';
 import { fetchAllPosts } from '../../api';
 import './dashboard.styles.css';
 import Card from '../../components/Card/Card';
+import { useAuthContext } from '../../context/AuthContext';
 
 const Dashboard = () => {
+  const { loading, token } = useAuthContext();
   const [posts, setPosts] = useState([]);
 
   useEffect(() => {
-    const getPosts = async () => {
-      const postsData = await fetchAllPosts();
-      setPosts(postsData)
-    };
-    getPosts();
-  }, []);
+    if (token) {
+      const getPosts = async () => {
+        const postsData = await fetchAllPosts();
+        setPosts(postsData)
+      };
+      getPosts();
+    }
+  }, [token]);
+
+  if (loading) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <div>
