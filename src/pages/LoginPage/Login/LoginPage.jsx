@@ -3,11 +3,9 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import './LoginPage.Styles.css'; 
 import { loginUser } from "../../../api";
-import { useAuthContext } from "../../../context/AuthContext";
 
 
 const LoginPage = () => {
-    const { loading, setLoading, setToken } = useAuthContext();
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
     const [error, setError] = useState('')
@@ -24,19 +22,14 @@ const LoginPage = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+
         try {
             const data = await loginUser({ username, password });
-            if (data.token) {
-                setToken(data.token);
-                console.log(data.message);
-                setLoading(false);
-                navigate('/home');
-            } else {
-                setError('No token recieved. Login failed.')
-            } 
+            console.log(data.message);
+            navigate('/home');
+            // setTimeout(() => navigate('/home'), 1000);
         } catch (err) {
             setError("Failed to log in.");
-            setLoading(false);
         }
     };
 
