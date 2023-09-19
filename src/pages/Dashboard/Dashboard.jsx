@@ -1,10 +1,11 @@
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
 import { fetchAllPosts } from '../../api';
 import './dashboard.styles.css';
 import Card from '../../components/Card/Card';
+import { usePost } from '../../context/postContext';
 
 const Dashboard = () => {
-  const [posts, setPosts] = useState([]);
+  const { posts, setPosts } = usePost();
 
   useEffect(() => {
     const getPosts = async () => {
