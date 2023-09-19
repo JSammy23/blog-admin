@@ -1,7 +1,8 @@
 const BASE_URL = 'http://localhost:3000/posts';
-const token = localStorage.getItem('token');
+
 
 export const fetchAllPosts = async () => {
+    const token = localStorage.getItem('token');
     const response = await fetch(`${BASE_URL}/all`, {
         method: "GET",
         headers: {
