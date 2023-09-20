@@ -3,6 +3,7 @@ import { fetchAllPosts } from '../../api';
 import './dashboard.styles.css';
 import Card from '../../components/Card/Card';
 import { usePost } from '../../context/postContext';
+import ButtonComponent from '../../components/Button/ButtonComponent';
 
 const Dashboard = () => {
   const { posts, setPosts } = usePost();
@@ -19,6 +20,7 @@ const Dashboard = () => {
     <div>
       <div className="header">
         <h1>Blog Admin Portal</h1>
+        <ButtonComponent size='large' >Compose</ButtonComponent>
       </div>
       <div className="card-container">
         {posts.map((post) => (
