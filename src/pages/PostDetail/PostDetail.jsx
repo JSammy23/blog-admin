@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { usePost } from "../../context/postContext";
 import { useParams } from "react-router-dom";
 import { fetchPostById } from "../../api";
+import './PostDetail.styles.css';
 
 function PostDetail() {
   const { getPostById } = usePost();
@@ -42,10 +43,12 @@ function PostDetail() {
   }
 
   return (
-    <div>
-        PostDetail
-        <p>{post.title}</p>
-        <p>{post.content}</p>
+    <div className="post-container" >
+        <div className="post-header">
+          <h3 className="title" >{post.title}</h3>
+        </div>
+        <hr />
+        <p className="content" >{post.content}</p>
     </div>
   );
 }

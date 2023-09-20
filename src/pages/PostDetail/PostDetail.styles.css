@@ -1,0 +1,14 @@
+.post-container {
+    /* border: 2px solid lime; */
+    padding: 1em 3em;
+    border-radius: 15px;
+    background-color: var(--dark-200);
+}
+
+.title {
+    color: var(--primary-100);
+}
+
+.content {
+    color: var(--font-color);
+}
