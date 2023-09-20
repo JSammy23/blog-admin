@@ -20,6 +20,24 @@ export const fetchAllPosts = async () => {
     return data;
 };
 
+export const fetchPostById = async (id) => {
+    const token = localStorage.getItem('token');
+    const response = await fetch(`${BASE_URL}/${id}`, {
+        method: 'GET',
+        headers: {
+            "Content-Type": "application/json",
+            "Authorization": `${token}`
+        },
+    });
+
+    if (!response.ok) {
+        throw new Error("Failed to fetch post");
+    }
+
+    const data = await response.json();
+    return data;
+};
+
 export const createNewPost = async (postDetails) => {
     const token = localStorage.getItem('token'); 
 
