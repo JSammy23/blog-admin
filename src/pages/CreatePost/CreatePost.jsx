@@ -1,8 +1,9 @@
-import TextEditor from "../../components/TextEditor";
+import TextEditor from "../../components/TextEditor/TextEditor";
+import './CreatePost.Styles.css';
 
 const CreatePost = () => {
   return (
-    <div>
+    <div className="wrapper">
         <h1>CreatePost</h1>
         <TextEditor />
     </div>

@@ -1,0 +1,24 @@
+.quill-container {
+    background-color: gainsboro;
+    width: 100%;
+    min-height: 10em;
+    border-radius: 20px;
+    border: none;
+}
+
+.ql-editor {
+    min-height: 10em;
+}
+
+.ql-container.ql-snow {
+    border: none;
+}
+
+.ql-toolbar.ql-snow {
+    border: none;
+}
+
+.wrapper {
+    width: 70vw;
+    /* border: 2px solid lime; */
+}
