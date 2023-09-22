@@ -1,7 +1,88 @@
+.wrapper {
+    width: 70vw;
+    /* border: 2px solid lime; */
+}
+
+.create-header h1 {
+ color: var(--primary-100);
+}
+
+.form-container {
+    color: var(--font-color);
+    font-size: larger;
+    padding: 1em;
+    display: flex;
+    justify-content: space-between;
+}
+
+.form-group {
+    display: flex;
+    align-items: center;
+}
+
+.form-container input {
+    border-radius: 5px;
+    background-color: gainsboro;
+    font-size: large;
+}
+
+.title-input {
+    min-width: 25em
+}
+
+input[type=checkbox] {
+	height: 0;
+	width: 0;
+	visibility: hidden;
+}
+
+.toggle {
+    cursor: pointer;
+	text-indent: -9999px;
+	width: 80px;
+	height: 40px;
+	background: grey;
+	display: block;
+	border-radius: 40px;
+	position: relative;  
+}
+
+.toggle:after {
+	content: '';
+	position: absolute;
+	top: 2px;
+	left: 2px;
+	width: 36px;
+	height: 36px;
+	background: #fff;
+	border-radius: 36px;
+	transition: 0.3s;
+}
+
+input:checked + .toggle {
+	background: #bada55;
+}
+
+input:checked + .toggle:after {
+	left: calc(100% - 2px);
+	transform: translateX(-100%);
+}
+
+.toggle:active:after {
+	width: 52px;
+}
+
+.submit {
+    margin-top: 2em;
+}
+
+
+/* Editor Styling */
+
 .quill-container {
     background-color: gainsboro;
     width: 100%;
-    min-height: 10em;
+    min-height: 25em;
     border-radius: 20px;
     border: none;
 }
@@ -16,9 +97,4 @@
 
 .ql-toolbar.ql-snow {
     border: none;
-}
-
-.wrapper {
-    width: 70vw;
-    /* border: 2px solid lime; */
 }
