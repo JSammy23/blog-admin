@@ -40,8 +40,9 @@ export const fetchPostById = async (id) => {
 
 export const createNewPost = async (postDetails) => {
     const token = localStorage.getItem('token'); 
+    console.log(postDetails);
 
-    const response = await fetch(`${BASE_URL}/posts`, { 
+    const response = await fetch(`${BASE_URL}`, { 
         method: "POST",
         headers: {
             "Content-Type": "application/json",
@@ -51,8 +52,16 @@ export const createNewPost = async (postDetails) => {
     });
 
     if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(errorData.message || "Failed to create post");
+        let errorMsg;
+        // Check if the content-type is JSON
+        const contentType = response.headers.get("content-type");
+        if (contentType && contentType.includes("application/json")) {
+            errorMsg = (await response.json()).message;
+        } else {
+            errorMsg = await response.text();
+        }
+    
+        throw new Error(errorMsg || "Failed to create post");
     }
 
     const data = await response.json();
