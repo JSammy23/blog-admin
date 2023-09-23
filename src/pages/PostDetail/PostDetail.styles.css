@@ -12,3 +12,7 @@
 .content {
     color: var(--font-color);
 }
+
+.content h1, h2, h3 {
+    color: var(--primary-300);
+}

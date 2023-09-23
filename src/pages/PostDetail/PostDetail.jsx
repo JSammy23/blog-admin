@@ -48,7 +48,7 @@ function PostDetail() {
           <h3 className="title" >{post.title}</h3>
         </div>
         <hr />
-        <p className="content" >{post.content}</p>
+        <div className="content" dangerouslySetInnerHTML={{__html: post.content}} ></div>
     </div>
   );
 }
