@@ -10,4 +10,5 @@
 .card-container {
     display: flex;
     gap: 1.5em;
+    flex-wrap: wrap;
 }
