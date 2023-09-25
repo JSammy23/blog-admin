@@ -15,6 +15,7 @@ function App() {
         <Route element={<PrivateRoute />} >
           <Route path='/home' element={<Dashboard />} />
           <Route path='/post/:postId' element={<PostDetail />} />
+          <Route path='/post/:postId/edit' element={<CreatePost  />} />
           <Route path='/post/compose' element={<CreatePost />} />
         </Route>
       </Routes>
