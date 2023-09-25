@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import { usePost } from "../../context/postContext";
 import { useParams } from "react-router-dom";
 import { fetchPostById } from "../../api";
+import ButtonComponent from "../../components/Button/ButtonComponent";
+import { useNavigate } from 'react-router-dom';
 import './PostDetail.styles.css';
 
 function PostDetail() {
@@ -11,6 +13,7 @@ function PostDetail() {
   const [loading, setLoading] = useState(!post);
   const [error, setError] = useState(null);
 
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchPost = async () => {
@@ -30,6 +33,10 @@ function PostDetail() {
     }
   }, [postId]);
 
+  const handleEditClick = () => {
+    navigate(`/post/${postId}/edit`, { state: { post }});
+  };
+
   if (loading) {
     return <div>Loading...</div>;
   }
@@ -43,12 +50,17 @@ function PostDetail() {
   }
 
   return (
-    <div className="post-container" >
-        <div className="post-header">
-          <h3 className="title" >{post.title}</h3>
-        </div>
-        <hr />
-        <div className="content" dangerouslySetInnerHTML={{__html: post.content}} ></div>
+    <div>
+      <div className="controls">
+        <ButtonComponent onClick={handleEditClick} >Edit Post</ButtonComponent>
+      </div>
+      <div className="post-container" >
+          <div className="post-header">
+            <h3 className="title" >{post.title}</h3>
+          </div>
+          <hr />
+          <div className="content" dangerouslySetInnerHTML={{__html: post.content}} ></div>
+      </div>
     </div>
   );
 }
