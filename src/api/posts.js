@@ -67,3 +67,32 @@ export const createNewPost = async (postDetails) => {
     const data = await response.json();
     return data;
 };
+
+export const updatePost = async (postId, postDetails) => {
+    const token = localStorage.getItem('token'); 
+
+    const response = await fetch(`${BASE_URL}/${postId}`, { 
+        method: "PUT",  // Using PUT for update
+        headers: {
+            "Content-Type": "application/json",
+            "Authorization": `${token}`
+        },
+        body: JSON.stringify(postDetails)
+    });
+
+    if (!response.ok) {
+        let errorMsg;
+        // Check if the content-type is JSON
+        const contentType = response.headers.get("content-type");
+        if (contentType && contentType.includes("application/json")) {
+            errorMsg = (await response.json()).message;
+        } else {
+            errorMsg = await response.text();
+        }
+    
+        throw new Error(errorMsg || "Failed to update post");
+    }
+
+    const data = await response.json();
+    return data;
+};
