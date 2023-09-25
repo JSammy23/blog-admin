@@ -1,13 +1,18 @@
 import { useState } from "react";
+import { useLocation } from "react-router-dom";
 import TextEditor from "../../components/TextEditor/TextEditor";
 import './CreatePost.Styles.css';
-import { createNewPost } from "../../api";
+import { createNewPost, updatePost } from "../../api";
 import ButtonComponent from "../../components/Button/ButtonComponent";
 
 const CreatePost = () => {
-  const [editorState, setEditorState] = useState('');
-  const [title, setTitle] = useState('');
-  const [isPublished, setIsPublished] = useState(false);
+  const location = useLocation();
+  const routePost = location.state?.post;
+
+  const [editorState, setEditorState] = useState(routePost?.content || '');
+  const [title, setTitle] = useState(routePost?.title || '');
+  const [isPublished, setIsPublished] = useState(routePost?.published || false);
+  const isEditMode = !!routePost;
 
   const handleEditorChange = (value) => {
     setEditorState(value);
@@ -29,30 +34,38 @@ const CreatePost = () => {
     }
 
     const postDetails = {
-        title: title,
-        content: editorState,
-        isPublished: isPublished
+      title: title,
+      content: editorState,
+      isPublished: isPublished
     };
 
     try {
-        const result = await createNewPost(postDetails);
+      let result;
+      if (isEditMode) {
+        result = await updatePost(routePost._id, postDetails); 
+        console.log('Post updated successfully:', result);
+      } else {
+        result = await createNewPost(postDetails);
         console.log('Post created successfully:', result);
-        // Add a success notification or redirect the user to another page, etc.
+      }
+
+      // Add a success notification or redirect the user to another page, etc.
     } catch (error) {
-        console.error('Error creating post:', error.message);
-        // Display an error notification here.
+      const action = isEditMode ? 'updating' : 'creating';
+      console.error(`Error ${action} post:`, error.message);
+      // Display an error notification here.
     }
   };
 
   return (
     <div className="wrapper">
         <div className="create-header">
-          <h1>Create New Blog Post</h1>
+          <h1>{isEditMode ? 'Edit Blog Post' : 'Create New Blog Post'}</h1>
         </div>
         <div className="form-container">
           <div className="form-group">
             <label htmlFor="title">Title: </label>
-            <input className="title-input" type="text" name="title" id="title" onChange={handleTitleChange} />
+            <input value={title} className="title-input" type="text" name="title" id="title" onChange={handleTitleChange} />
           </div>
           <div className="form-group">
             <p>Published: </p>
