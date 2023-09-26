@@ -2,6 +2,7 @@
  color: var(--primary-100);
  display: flex;
  justify-content: space-between;
+ gap: 1em;
  align-items: center;
  margin-bottom: 2.5em;
  border-bottom: 2px solid;
