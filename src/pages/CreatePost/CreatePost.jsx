@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import TextEditor from "../../components/TextEditor/TextEditor";
 import './CreatePost.Styles.css';
 import { createNewPost, updatePost } from "../../api";
@@ -8,6 +8,7 @@ import ButtonComponent from "../../components/Button/ButtonComponent";
 const CreatePost = () => {
   const location = useLocation();
   const routePost = location.state?.post;
+  const navigate = useNavigate();
 
   const [editorState, setEditorState] = useState(routePost?.content || '');
   const [title, setTitle] = useState(routePost?.title || '');
@@ -36,7 +37,7 @@ const CreatePost = () => {
     const postDetails = {
       title: title,
       content: editorState,
-      isPublished: isPublished
+      published: isPublished
     };
 
     try {
@@ -48,7 +49,7 @@ const CreatePost = () => {
         result = await createNewPost(postDetails);
         console.log('Post created successfully:', result);
       }
-
+      navigate('/home');
       // Add a success notification or redirect the user to another page, etc.
     } catch (error) {
       const action = isEditMode ? 'updating' : 'creating';
