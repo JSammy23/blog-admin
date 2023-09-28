@@ -11,7 +11,7 @@ function App() {
   return (
     <>
       <Routes>
-        <Route path='/login' element={<LoginPage />} />
+        <Route path='/' element={<LoginPage />} />
         <Route element={<PrivateRoute />} >
           <Route path='/home' element={<Dashboard />} />
           <Route path='/post/:postId' element={<PostDetail />} />
