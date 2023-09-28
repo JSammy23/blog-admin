@@ -96,3 +96,21 @@ export const updatePost = async (postId, postDetails) => {
     const data = await response.json();
     return data;
 };
+
+export const deletePost = async (postId) => {
+    const token = localStorage.getItem('token');
+    const response = await fetch(`${BASE_URL}/${postId}`, {
+        method: 'DELETE',
+        headers: {
+            "Content-Type": "application/json",
+            "Authorization": `${token}`
+        },
+    });
+
+    if (!response.ok) {
+        throw new Error("Failed to delete post");
+    }
+
+    const data = await response.json();
+    return data;
+}
