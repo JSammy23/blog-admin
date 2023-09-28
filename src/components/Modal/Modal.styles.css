@@ -1,0 +1,32 @@
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.modal {
+    background-color: var(--dark-300);
+    padding: 20px;
+    border-radius: 4px;
+    width: 80%;
+    max-width: 500px;
+    color: var(--font-color);
+}
+
+.modal span {
+    color: var(--primary-100)
+}
+
+.modal button {
+    margin-left: 1em;
+}
+
+.danger {
+    background-color: rgb(201, 52, 52);
+}
