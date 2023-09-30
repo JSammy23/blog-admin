@@ -1,0 +1,11 @@
+.comment {
+    /* border: 2px solid lime; */
+    padding: 1em 3em;
+    border-radius: 15px;
+    background-color: var(--dark-200);
+    margin: 1.5em 1em;
+}
+
+.comment p {
+    color: var(--font-color);
+}
