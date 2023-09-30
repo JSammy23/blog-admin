@@ -6,6 +6,7 @@ import ButtonComponent from "../../components/Button/ButtonComponent";
 import Modal from "../../components/Modal/Modal";
 import { useNavigate } from 'react-router-dom';
 import { format, parseISO } from 'date-fns';
+import Comment from "../../components/Comment/Comment";
 import './PostDetail.styles.css';
 
 function PostDetail() {
@@ -82,6 +83,11 @@ function PostDetail() {
           </div>
           <hr />
           <div className="content" dangerouslySetInnerHTML={{__html: post.content}} ></div>
+      </div>
+      <div className="comment-container">
+        {post.comments.length > 0 && post.comments.map((comment, index) => (
+          <Comment key={index} comment={comment} />
+        ))}
       </div>
     </div>
   );
