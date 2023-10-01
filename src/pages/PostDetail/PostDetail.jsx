@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { usePost } from "../../context/postContext";
 import { useParams } from "react-router-dom";
-import { fetchPostById, deletePost } from "../../api";
+import { fetchPostById, deletePost, updatePost } from "../../api";
 import ButtonComponent from "../../components/Button/ButtonComponent";
 import Modal from "../../components/Modal/Modal";
 import { useNavigate } from 'react-router-dom';
@@ -16,6 +16,7 @@ function PostDetail() {
   const [loading, setLoading] = useState(!post);
   const [error, setError] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [allowComments, setAllowComments] = useState(post?.allowComments)
 
   const navigate = useNavigate();
 
@@ -53,6 +54,18 @@ function PostDetail() {
     navigate('/home');
   };
 
+  const toggleAllowComments = async () => {
+    try {
+      setAllowComments(!allowComments);
+      const postDetails = {
+        allowComments: (!post.allowComments)
+      };
+      await updatePost(post._id, postDetails)
+    } catch (err) {
+      console.error("Failed to toggle comments", err)
+    }
+  };
+
   if (loading) {
     return <div>Loading...</div>;
   }
@@ -70,6 +83,12 @@ function PostDetail() {
       <div className="controls">
         <ButtonComponent onClick={() => setIsModalOpen(true)} >Delete Post</ButtonComponent>
         <ButtonComponent onClick={handleEditClick} >Edit Post</ButtonComponent>
+        <ButtonComponent onClick={toggleAllowComments} >
+          Comments Allowed:  
+          <span style={{ color: allowComments ? 'inherit' : 'red' }} >
+            {allowComments ? ' On' : ' Off'}
+          </span>
+          </ButtonComponent>
       </div>
       <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} >
         <h2>Do you really want to delete this post?</h2>
