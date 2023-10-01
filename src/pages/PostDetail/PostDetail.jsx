@@ -54,6 +54,10 @@ function PostDetail() {
     navigate('/home');
   };
 
+  const handleDeleteComment = async () => {
+    // Delete comment by id
+  }
+
   const toggleAllowComments = async () => {
     try {
       setAllowComments(!allowComments);
