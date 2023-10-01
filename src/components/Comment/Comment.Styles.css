@@ -1,11 +1,62 @@
 .comment {
     /* border: 2px solid lime; */
-    padding: 1em 3em;
+    padding: .7em 1em;
     border-radius: 15px;
     background-color: var(--dark-200);
     margin: 1.5em 1em;
+    display: flex;
 }
 
 .comment p {
     color: var(--font-color);
+}
+
+.comment-header {
+    border-right: 1px solid #fff;
+    padding: 0 1em;
+    margin-right: 1em;
+}
+
+.comment-body {
+    display: flex;
+    word-wrap: normal;
+    width: 100%;
+    justify-content: space-between;
+}
+
+.comment-controls button {
+    color: var(--primary-100);
+    border: none;
+    outline: none;
+    background-color: transparent;
+    font-size: large;
+    cursor: pointer;
+}
+
+.comment-controls {
+    position: relative;
+    display: inline-block;
+}
+
+.dropdown-content {
+    position: absolute;
+    right: 0; /* Display it to the right of the button. If you want it below the button, change to "top: 100%;" and remove "right: 0" */
+    background-color: var(--dark-300);
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+}
+
+/* Styles for the links inside the dropdown */
+.dropdown-content a {
+    color: var(--primary-100);
+    padding: .5em .7em;
+    text-decoration: none;
+    display: block;
+}
+
+/* Styling for hovering over the links inside the dropdown */
+.dropdown-content a:hover {
+    background-color: var(--dark-400);
+    color: var(--primary-100);
 }
