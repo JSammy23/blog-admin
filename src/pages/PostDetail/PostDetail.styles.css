@@ -4,6 +4,7 @@
     border-radius: 15px;
     background-color: var(--dark-200);
     margin: 1.5em 1em;
+    max-width: 1300px;
 }
 
 .title {
