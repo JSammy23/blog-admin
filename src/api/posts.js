@@ -114,3 +114,21 @@ export const deletePost = async (postId) => {
     const data = await response.json();
     return data;
 }
+
+export const deleteComment = async (postId, commentId) => {
+    const token = localStorage.getItem('token');
+    const response = await fetch(`${BASE_URL}/${postId}/comment/${commentId}`, {
+        method: 'DELETE',
+        headers: {
+            "Content-Type": "application/json",
+            "Authorization": `${token}`
+        },
+    });
+
+    if (!response.ok) {
+        throw new Error("Failed to delete comment");
+    }
+
+    const data = await response.json();
+    return data;
+}
