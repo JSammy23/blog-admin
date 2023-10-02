@@ -11,7 +11,7 @@ const CommentEditor = ({ onClose, onSubmit }) => {
 
   return (
     <div>
-        <textarea onChange={handleChange} name="commentText" id="commentText" cols="80" rows="10"></textarea>
+        <textarea className='comment-editor' onChange={handleChange} name="commentText" id="commentText" cols="60" rows="8"></textarea>
         <div className="controls">
             <ButtonComponent onClick={() => onSubmit(editorState)} >Submit</ButtonComponent>
             <ButtonComponent onClick={onClose} >Cancel</ButtonComponent>
