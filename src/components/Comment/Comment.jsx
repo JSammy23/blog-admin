@@ -39,7 +39,10 @@ const Comment = ({ comment, onDelete }) => {
           <button onClick={toggleMenu} >⋮</button>
           {isMenuOpen && (
           <div className='dropdown-content' >
-            <a href="#" onClick={onDelete} >Delete</a>
+            <a href="#" onClick={(e) => {
+              e.preventDefault();
+              onDelete();
+            }} >Delete</a>
           </div>
           )}
         </div>
