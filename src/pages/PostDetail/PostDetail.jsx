@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { usePost } from "../../context/postContext";
 import { useParams } from "react-router-dom";
-import { fetchPostById, deletePost, updatePost } from "../../api";
+import { fetchPostById, deletePost, updatePost, deleteComment } from "../../api";
 import ButtonComponent from "../../components/Button/ButtonComponent";
 import Modal from "../../components/Modal/Modal";
 import { useNavigate } from 'react-router-dom';
@@ -16,7 +16,7 @@ function PostDetail() {
   const [loading, setLoading] = useState(!post);
   const [error, setError] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [allowComments, setAllowComments] = useState(post?.allowComments)
+  const allowComments = post?.allowComments;
 
   const navigate = useNavigate();
 
@@ -54,17 +54,30 @@ function PostDetail() {
     navigate('/home');
   };
 
-  const handleDeleteComment = async () => {
-    // Delete comment by id
+  const handleDeleteComment = async (commentId) => {
+    try {
+      await deleteComment(postId, commentId);
+      console.log("Comment deleted", commentId)
+      // Remove comment from local post object
+      setPost(prevPost => ({
+        ...prevPost,
+        comments: prevPost.comments.filter(comment => comment._id !== commentId)
+      }));
+    } catch (err) {
+      console.error("Failed to delete comment", err);
+    }
   }
 
   const toggleAllowComments = async () => {
     try {
-      setAllowComments(!allowComments);
+      const updatedAllowCommentsStatus = !post.allowComments;
       const postDetails = {
-        allowComments: (!post.allowComments)
+        allowComments: updatedAllowCommentsStatus
       };
-      await updatePost(post._id, postDetails)
+      await updatePost(post._id, postDetails);
+
+      // Now, update the local post object
+      setPost(prevPost => ({ ...prevPost, allowComments: updatedAllowCommentsStatus }));
     } catch (err) {
       console.error("Failed to toggle comments", err)
     }
@@ -107,9 +120,10 @@ function PostDetail() {
           <hr />
           <div className="content" dangerouslySetInnerHTML={{__html: post.content}} ></div>
       </div>
+      <hr />
       <div className="comment-container">
-        {post.comments.length > 0 && post.comments.map((comment, index) => (
-          <Comment key={index} comment={comment} />
+        {post.comments.length > 0 && post.comments.map((comment) => (
+          <Comment key={comment._id} comment={comment} onDelete={() => handleDeleteComment(comment._id)} />
         ))}
       </div>
     </div>
