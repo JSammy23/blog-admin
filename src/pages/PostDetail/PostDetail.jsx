@@ -1,13 +1,14 @@
 import { useEffect, useState } from "react";
 import { usePost } from "../../context/postContext";
 import { useParams } from "react-router-dom";
-import { fetchPostById, deletePost, updatePost, deleteComment } from "../../api";
+import { fetchPostById, deletePost, updatePost, deleteComment, addComment } from "../../api";
 import ButtonComponent from "../../components/Button/ButtonComponent";
 import Modal from "../../components/Modal/Modal";
 import { useNavigate } from 'react-router-dom';
 import { format, parseISO } from 'date-fns';
 import Comment from "../../components/Comment/Comment";
 import './PostDetail.styles.css';
+import CommentEditor from "../../components/Comment/CommentEditor";
 
 function PostDetail() {
   const { getPostById } = usePost();
@@ -16,6 +17,7 @@ function PostDetail() {
   const [loading, setLoading] = useState(!post);
   const [error, setError] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isCommentEditorOpen, setIsCommentEditorOpen] = useState(false);
   const allowComments = post?.allowComments;
 
   const navigate = useNavigate();
@@ -83,6 +85,25 @@ function PostDetail() {
     }
   };
 
+  const handleAddComment = async (commentBody) => {
+    try {
+        const commentDetails = { content: commentBody };
+        const newComment = await addComment(postId, commentDetails);
+        console.log("Comment added", newComment);
+
+        // Add new comment to the local post object
+        setPost(prevPost => ({
+            ...prevPost,
+            comments: [...prevPost.comments, newComment.comment]
+        }));
+
+        // Close the comment editor
+        setIsCommentEditorOpen(false);
+    } catch (err) {
+        console.error("Failed to add comment", err);
+    }
+  };
+
   if (loading) {
     return <div>Loading...</div>;
   }
@@ -125,6 +146,15 @@ function PostDetail() {
         {post.comments.length > 0 && post.comments.map((comment) => (
           <Comment key={comment._id} comment={comment} onDelete={() => handleDeleteComment(comment._id)} />
         ))}
+        <div className="create-comment">
+          {isCommentEditorOpen ? (
+            <CommentEditor 
+              onClose={() => setIsCommentEditorOpen(false)}
+              onSubmit={(commentBody) => handleAddComment(commentBody)} />
+          ) : (
+            <ButtonComponent onClick={() => setIsCommentEditorOpen(true)} >Add Comment</ButtonComponent>
+          ) }
+        </div>
       </div>
     </div>
   );
